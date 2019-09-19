@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SEARCH>
+	<PARAMETER>
+		<PARAM	type="row" 			index=""				col="ROW"		 		condition=""		/>
+		<PARAM	type="page" 		index=""				col="PAGE"				condition=""		/>
+		<PARAM	type="query" 		index=""				col="QUERY"				condition=""		/>
+		<PARAM	type="sort" 		index=""				col="SORT"				condition=""		/>
+		<PARAM	type="analyzer"		index=""				col="ANA"		 		condition=""		/>
+		<PARAM	type="range"		index="REG_TIME"		col="FROMDATE" 			condition="START"	/>
+		<PARAM	type="range"		index="REG_TIME"		col="TODATE" 			condition="END"		/>
+		<PARAM	type="term"			index="KIND_NO"			col="KINDNO" 			condition="EQUALS"	/>
+		<PARAM	type="term" 		index="CORP_NO"			col="CORPNO"			condition="EQUALS"	/>
+		<PARAM	type="term" 		index="PART_NO"			col="PARTNO"			condition="EQUALS"	/>
+		<PARAM	type="term"			index="USER_ID"			col="USERID" 			condition="EQUALS"	/>
+	</PARAMETER>
+	<OPTION>
+		<SEARCH		type="cnt"		val="1000" 	/>
+		<HIGHLIGHT	type="num"		val="2"		/>
+		<HIGHLIGHT	type="len"		val="30"	/>
+	</OPTION>
+	<DB_INSERT_QUERY>
+		INSERT INTO IMG_SEARCH_R(IDX, SDOC_NO, CONTENTS, REG_TIME) VALUES(?, ?, ?, ?)
+	</DB_INSERT_QUERY>
+</SEARCH>

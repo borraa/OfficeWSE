@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ADMIN>
+	<ADD_PARAMETER>
+		<PARAM	type="key"		index="SDOC_NO"			/>
+		<PARAM	type="title"	index="TITLE"		/>
+		<PARAM	type="string"	index="SDOC_NO"			/>
+		<PARAM	type="string"	index="DOC_IRN"			/>
+		<PARAM	type="string"	index="IDX"				/>
+		<PARAM	type="string"	index="REG_TIME"		/>
+		<PARAM	type="string"	index="UPDATE_TIME"		/>
+		<PARAM	type="string"	index="JDOC_NO"		/>
+		<PARAM	type="string"	index="USER_ID"			/>
+		<PARAM	type="string"	index="USER_NM_KO"		/>
+		<PARAM	type="string"	index="PART_NO"			/>
+		<PARAM	type="string"	index="PART_NM_KO"		/>
+		<PARAM	type="string"	index="CORP_NO"			/>
+		<PARAM	type="string"	index="CORP_NM_KO"		/>
+		<PARAM	type="string"	index="KIND_NO"			/>
+		<PARAM	type="string"	index="KIND_NM_KO"		/>
+		<PARAM	type="string"	index="FILE_TYPE"		/>
+		<PARAM	type="string"	index="STEP"		/>
+		<PARAM	type="content"	index="TITLE"		/>
+		<PARAM	type="fileflag"	index="FILE_FLAG"		/>
+	</ADD_PARAMETER>
+	
+	<ADMIN_COLUMN_ADD>
+		ALTER TABLE IMG_SE_FILE_T ADD ? ? ?
+	</ADMIN_COLUMN_ADD>
+	
+	<ADMIN_COLUMN_DELETE>
+		ALTER TABLE IMG_SE_FILE_T DROP COLUMN ?
+	</ADMIN_COLUMN_DELETE>
+	
+</ADMIN>

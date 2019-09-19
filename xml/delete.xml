@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DELETE>
+	<PARAMETER>
+		<PARAM	type="key"		index="SDOC_NO"			/>
+		<PARAM	type="title"	index="SDOC_NAME"		/>
+		<PARAM	type="string"	index="REG_TIME"		/>
+		<PARAM	type="string"	index="JDOC_NO"			/>
+		<PARAM	type="string"	index="USER_ID"			/>
+		<PARAM	type="string"	index="PART_NO"			/>
+		<PARAM	type="string"	index="CORP_NO"			/>
+		<PARAM	type="string"	index="KIND_NO"			/>
+		<PARAM	type="string"	index="FOLDER"			/>
+		<PARAM	type="content"	index="SDOC_NAME"		/>
+		
+		<!-- <PARAM	type="title"	index="FILE_NAME"		/> 
+		<PARAM	type="string"	index="DOC_IRN"			/> 
+		<PARAM	type="string"	index="IDX"				/>
+		<PARAM	type="string"	index="FILE_TYPE"		/> -->
+		
+		<!-- <PARAM	type="fileflag"	index="FILE_FLAG"		/> -->
+		<!-- <PARAM	type="flag"		index="FILE_FLAG" 		/>
+		<PARAM	type="string"	index="SDOC_NO"			/>
+		<PARAM	type="string"	index="UPDATE_TIME"		/>
+		<PARAM	type="string"	index="USER_NM_KO"		/>
+		<PARAM	type="string"	index="PART_NM_KO"		/>
+		<PARAM	type="string"	index="CORP_NM_KO"		/>
+		<PARAM	type="string"	index="KIND_NM_KO"		/>
+		<PARAM	type="string"	index="SDOC_STEP"		/> -->
+	</PARAMETER>
+
+	<DELETE_UPDATE_QUERY>
+		UPDATE IMG_SEARCH_T SET SE_FLAG = ?, REG_TIME = ?, MSG = ? WHERE SDOC_NO = ? And SE_FLAG = ? 
+	</DELETE_UPDATE_QUERY>
+	
+</DELETE>

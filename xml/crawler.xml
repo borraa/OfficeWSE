@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CRAWLER>
+	<PARAMETER>
+		<PARAM	type="key"		index="SDOC_NO"			/>
+		<PARAM	type="title"	index="SDOC_NAME"		/>
+		<PARAM	type="string"	index="SDOC_NO"			/>
+		<PARAM	type="string"	index="REG_TIME"		/>
+		<PARAM	type="string"	index="JDOC_NO"			/>
+		<PARAM	type="string"	index="USER_ID"			/>
+		<PARAM	type="string"	index="PART_NO"			/>
+		<PARAM	type="string"	index="CORP_NO"			/>
+		<PARAM	type="string"	index="KIND_NO"			/>
+		<PARAM	type="string"	index="FOLDER"			/>
+		<PARAM	type="content"	index="SDOC_NAME"		/>
+		
+		<!-- <PARAM	type="title"	index="FILE_NAME"		/> 
+		<PARAM	type="string"	index="DOC_IRN"			/> 
+		<PARAM	type="string"	index="IDX"				/>
+		<PARAM	type="string"	index="FILE_TYPE"		/> -->
+		
+		<!-- <PARAM	type="fileflag"	index="FILE_FLAG"		/> -->
+		<!-- <PARAM	type="string"	index="UPDATE_TIME"		/> -->
+		<!-- <PARAM	type="string"	index="SDOC_STEP"		/> -->
+		<!-- <PARAM	type="string"	index="USER_NM_KO"		/> -->
+		<!-- <PARAM	type="string"	index="PART_NM_KO"		/> -->
+		<!-- <PARAM	type="string"	index="CORP_NM_KO"		/> -->
+		<!-- <PARAM	type="string"	index="KIND_NM_KO"		/> -->
+	</PARAMETER>
+	
+	<CRAWL_TABLE>
+		<SLIP_TABLE>
+			IMG_ORGFILE_X
+		</SLIP_TABLE>
+	</CRAWL_TABLE>
+	<CRAWL_QUERY>
+		<SDOC_CRAWL_QUERY>
+			SELECT  a.SDOC_NO, f.DOC_IRN, CONVERT(varchar(19), GETDATE(), 20) AS REG_TIME, a.SDOC_NAME, a.JDOC_NO, a.FOLDER, b.USER_ID, c.PART_NO, d.CORP_NO, e.KIND_NO, g.IDX,
+		
+			(CASE WHEN CHARINDEX('.', f.ORG_FILE) = '' THEN f.ORG_FILE WHEN CHARINDEX('.', ORG_FILE) > 0 THEN LEFT(ORG_FILE, CHARINDEX('.', ORG_FILE)-1) END) AS FILE_NAME,
+			
+			(CASE WHEN CHARINDEX('.', REVERSE(ORG_FILE)) = '' THEN '' WHEN CHARINDEX('.', REVERSE(ORG_FILE)) > 0 THEN RIGHT(ORG_FILE, CHARINDEX('.', REVERSE(ORG_FILE))-1) END) AS FILE_TYPE
+		
+			FROM IMG_SLIPDOC_T a 
+			inner join IMG_USER_T b on a.REG_USER = b.USER_ID
+			inner join IMG_PART_T c on b.PART_NO = c.PART_NO
+			inner join IMG_COMPANY_T d on b.CORP_NO = d.CORP_NO
+			inner join IMG_SLIPKIND_T e on a.SDOC_KIND = e.KIND_NO
+			inner join IMG_ORGFILE_T f on a.SDOC_NO = f.SDOC_NO
+			inner join wd_IMG_ORGFILE_X g on f.DOC_IRN = g.DOC_IRN
+			WHERE a.? and SDOC_STEP != '9';
+		</SDOC_CRAWL_QUERY>
+	</CRAWL_QUERY>
+	<CRAWL_START_QUERY>
+		INSERT INTO IMG_SEARCH_T(SDOC_NO, SE_FLAG, FILE_FLAG, REG_TIME, MSG) VALUES(?, ?, ?, ?, ?)
+	</CRAWL_START_QUERY>
+	<CRAWL_UPDATE_QUERY>
+		UPDATE IMG_SEARCH_T SET SE_FLAG = ?, REG_TIME = ?, MSG = ? WHERE SDOC_NO = ?
+	</CRAWL_UPDATE_QUERY>
+
+	<SDOC_CHK_QUERY>
+		SELECT * FROM IMG_SLIPDOC_T WHERE ? 
+	</SDOC_CHK_QUERY>
+	
+	<SDOC_SE_QUERY>
+		SELECT * FROM IMG_SEARCH_T WHERE ?
+	</SDOC_SE_QUERY>
+	
+	<SDOC_UPDATE_QUERY>
+		UPDATE IMG_SEARCH_T SET SE_FLAG = ?, REG_TIME = ?, MSG = ? WHERE SDOC_NO = ?
+	</SDOC_UPDATE_QUERY>
+	
+	<ADD_QUERY>
+		SELECT  a.SDOC_NO, CONVERT(varchar(19), GETDATE(), 20) AS REG_TIME, a.SDOC_NAME, a.JDOC_NO, a.FOLDER, b.USER_ID, c.PART_NO, d.CORP_NO, e.KIND_NO
+	
+		FROM IMG_SLIPDOC_T a 
+		inner join IMG_USER_T b on a.REG_USER = b.USER_ID
+		inner join IMG_PART_T c on b.PART_NO = c.PART_NO
+		inner join IMG_COMPANY_T d on b.CORP_NO = d.CORP_NO
+		inner join IMG_SLIPKIND_T e on a.SDOC_KIND = e.KIND_NO
+		WHERE a.? and SDOC_STEP != '9';
+	</ADD_QUERY>
+
+</CRAWLER>
